@@ -127,6 +127,7 @@ class AsciiShop(RandomCat):
         self.asciiChars = [ '#', 'A', '@', '%', 'S', '+', '<', '*', ':', ',', '.']
         self.imageAsAscii = []
         self.matrix = None
+        self.all_pixels = []
 
 
     """
@@ -145,8 +146,8 @@ class AsciiShop(RandomCat):
 
         self.newImage = self.img.resize((self.newWidth, self.newHeight))
         self.newImage = self.newImage.convert("L") # convert to grayscale
-        all_pixels = list(self.newImage.getdata())
-        self.matrix = listToMatrix(all_pixels,self.newWidth)
+        self.all_pixels = list(self.newImage.getdata())
+        self.matrix = listToMatrix(self.all_pixels,self.newWidth)
         
         for i in range(len(self.matrix)):
             for j in range(len(self.matrix[i])):
