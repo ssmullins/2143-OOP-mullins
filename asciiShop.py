@@ -1,9 +1,20 @@
+"""
+Program: AsciiCat
+
+Descrition: This program goes out on the internet and downloads a random image containing a cat.
+Once an image is obtained it can be manipulated using the defined functions.
+    
+    * ConvertToAscii - Converts the image into the same image but made up of ascii characters.
+    * flip - Takes an input of either Vertical or Horizontal and flips the ascii image respectively.
+    * invert - Takes the ascii characters in the image and reverses the shade scale (lightest characters 
+               become darkest, and darkest become lightest).
+    * printImage - Prints the ascii image to the screen.
+"""
 import os
 import time
 import urllib3, uuid
 from PIL import Image
 import sys
-
 
 url = 'http://thecatapi.com/api/images/get'
 
@@ -28,7 +39,6 @@ class RandomCat(object):
         self.width = 0          # width of image
         self.height = 0         # height of image
         self.img = None         # Pillow var to hold image
-
 
     """
     @Description:
@@ -64,15 +74,12 @@ class RandomCat(object):
         seconds,milli = str(time.time()).split('.')
         return seconds
 
-
 """
 The ascii character set we use to replace pixels.
 The grayscale pixel values are 0-255.
 0 - 25 = '#' (darkest character)
 250-255 = '.' (lightest character)
 """
-
-
 class AsciiImage(RandomCat):
 
     def __init__(self,new_width="not_set"):
@@ -85,9 +92,8 @@ class AsciiImage(RandomCat):
         self.imageAsAscii = []
         self.matrix = None
 
-
     """
-    Your comments here
+    
     """
     def convertToAscii(self):
 
@@ -108,13 +114,41 @@ class AsciiImage(RandomCat):
         for pixel_value in all_pixels: 
              index = pixel_value // 25 # 0 - 10 
              self.imageAsAscii.append(self.asciiChars[index]) 
-
         
     def printImage(self): 
         self.imageAsAscii = ''.join(ch for ch in self.imageAsAscii) 
         for c in range(0, len(self.imageAsAscii), self.newWidth): 
             print (self.imageAsAscii[c:c+self.newWidth])   
         
+"""
+@Class: AsciiShop
+@Usage: manipCat = AsciiShop(50)
+
+@Description:
+    AsciiShop class is used to manipulate an ascii image.
+        * Flip the image horizontally or vertically.
+        * Invert the pixles value of the ascii image (darkest to lightest and lightest to darkest).
+        * Print the manipulated image
+@Params:
+    param1 - (object) RandomCat - Instance of the class RandomCat so we have access to its data members.
+@Methods:
+    convertToAscii - Converts an image to grayscale with self.newImage.convert('L'),
+        stores the grayscaled in a list self.all_pixels[], stores self.all_pixels in
+        another list self.matrix, assigns each grayscale value in self.matrix to an 
+        ascii character.
+        Usage: manipCat = AsciiShop(50)
+    flip - Takes a string parameter (Vertical, Horizontal), Vertical will reverse the self.matrix list
+        so if it were printed it would be flipped Vertically, Horizontal will reverse each individual
+        row in self.matrix so when printed the image will be flipped Horizontally.
+        Usage: manipCat.flip('Vertical')
+    invert - Reverses the ascii character value that is assigned to the values in self.matrix so that
+        when the image is printed the dark characters are now lighter and the lighter characters are 
+        now darker.
+        Usage: manipCat.invert()
+    printImage - Smashes all the characters in self.matrix together so there is no empty space, prints
+        the compacted image to the screen.
+        Usage: manipCat.printImage()
+"""
 
 class AsciiShop(RandomCat):
         
@@ -129,9 +163,13 @@ class AsciiShop(RandomCat):
         self.matrix = None
         self.all_pixels = []
 
-
     """
-    Your comments here
+    @Descrition: Converts an image to grayscale with self.newImage.convert('L'),
+        stores the grayscaled in a list self.all_pixels[], stores self.all_pixels in
+        another list self.matrix, assigns each grayscale value in self.matrix to an 
+        ascii character.
+    @Params: None
+    @Returns: Image converted to ascii
     """
     def convertToAscii(self):
 
@@ -152,8 +190,14 @@ class AsciiShop(RandomCat):
         for i in range(len(self.matrix)):
             for j in range(len(self.matrix[i])):
                 self.matrix[i][j] = self.asciiChars[self.matrix[i][j] // 25]
-      
-       
+ 
+    """
+    @Descrition: Takes a string parameter (Vertical, Horizontal), Vertical will reverse the self.matrix list
+       so if it were printed it would be flipped Vertically, Horizontal will reverse each individual
+       row in self.matrix so when printed the image will be flipped Horizontally.
+    @Params: String (Vertical, Horizontal).
+    @Returns: String in the form of manipulated ascii image.
+    """  
     def flip(self, str):
         
         dir = str
@@ -165,16 +209,29 @@ class AsciiShop(RandomCat):
                     self.matrix[i].reverse()
         else:
             print('Invalid Input')
-        
+    
+    """
+    @Description: Reverses the ascii character value that is assigned to the values in self.matrix so that
+        when the image is printed the dark characters are now lighter and the lighter characters are 
+        now darker.
+    @Params: None
+    @Returns: Inverted ascii image.
+    """    
     def invert(self):
         
-        self.asciiChars = [ '.', ',', ':', '*', '<', '+', 'S', '%', '@', 'A', '#' ]
+        self.asciiChars.reverse()
+        self.all_pixels = list(self.newImage.getdata())
+        self.matrix = listToMatrix(self.all_pixels,self.newWidth)
         
         for i in range(len(self.matrix)):
             for j in range(len(self.matrix[i])):
-                self.matrix[i][j] = self.asciiChars[self.matrix[i][j] // 25]   
+                self.matrix[i][j] = self.asciiChars[self.matrix[i][j] // 25]
+   
     """ 
-    Print the image to the screen 
+    @Description: Smashes all the characters in self.matrix together so there is no empty space, prints
+        the compacted image to the screen.
+    @Params: None
+    @Returns: Nothing
     """ 
     def printImage(self):
         for i in self.matrix:
@@ -205,8 +262,13 @@ if __name__=='__main__':
     flipCat.convertToAscii()
     flipCat.printImage()
     print('.')
-    #  flipCat.flip('Vertical')
-    #  flipCat.printImage()
+    flipCat.flip('Vertical')
+    flipCat.printImage()
+    print('.')
+    flipCat.flip('Horizontal')
+    flipCat.printImage()
+    print('.')
     flipCat.invert()
     flipCat.printImage()
+    
     
