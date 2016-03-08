@@ -1,4 +1,5 @@
 """
+Programed by: Samuel Mullins, Carlos Placencia
 Program: AsciiCat
 
 Descrition: This program goes out on the internet and downloads a random image containing a cat.
