@@ -7,21 +7,21 @@
 | -       | Code was commented                                         |    20       |    20    | ![Alt text][1] |
 | -       | Followed naming conventions (named your file correctly).   |            |         | ![Alt text][1] |
 |         |      Classname: asciiShop                                  |    3       |     3   | ![Alt text][1] |
-|         |     Foldername: AsciiShop for all your files.              |    3       |     3   | ![Alt text][1] |   
+|         |     Foldername: AsciiShop for all your files.              |    3       |     0   | ![Alt text][1] |   
 |         |     Renamed asciiArtClass.py to asciiShop.py               |    4       |     4   | ![Alt text][1] |
 | ***2*** | ***Flip Method***                                          |             |          | ![Alt text][1] |
 | -       | worked                                                     |    30       |    30    | ![Alt text][1] |
 | -       | could choose the direction                                 |    10        |    10     | ![Alt text][1] |
 | ***3*** | ***Invert Method***                                        |             |          | ![Alt text][1] |
 | -       | worked                                                     |    30       |    25    | ![Alt text][1] |
-|         | Totals:                                                    | **100**     |  **95** | ![Alt text][1] |
+|         | Totals:                                                    | **100**     |  **92** | ![Alt text][1] |
 | ***E*** | ***Extra Credit***                                         |             |          | ![Alt text][1] |
 | -       | Did one of the extra credit methods                        |    20       |    0     | ![Alt text][1] |
 
 ### Comments:
 ```
 - Your invert function destroys the ascii character array, so if you try to flip after you call invert, everything will be inverted.
-- Good job.
+- Same code wasn't on Carlos's site. It needs to be on BOTH. Next time points.
 ```
 
 [1]: http://f.cl.ly/items/3E231i211n2E042B1U3K/right.png  "Correct"
